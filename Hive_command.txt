@@ -1,0 +1,17 @@
+e
+// select get_json_object(twitter_data_view.json, '$.place.country') , count(*) 
+	from twitter_data_view
+	where get_json_object(twitter_data_view.json, '$.user.lang') = "en"
+	group by get_json_object(twitter_data_view.json, '$.place.country')
+
+
+
+f
+
+select 
+get_json_object(twitter_data_view.json, '$.place.country'),
+SUM(get_json_object(twitter_data_view.json, '$.user.statuses_count')) AS COUNT
+from twitter_data_view 
+WHERE get_json_object(twitter_data_view.json, '$.user.lang') = "en"
+GROUP BY get_json_object(twitter_data_view.json, '$.place.country')
+ORDER BY count DESC
